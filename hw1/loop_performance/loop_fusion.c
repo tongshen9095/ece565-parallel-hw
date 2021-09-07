@@ -18,7 +18,7 @@ double calc_time(struct timeval start, struct timeval end) {
 
 void do_loops(int *a, int *b, int *c, int N) {
     int i;
-    for (i = N - 1; i >= 1; i--) {
+    for (i = 1; i < N; i++) {
         a[i] = a[i] + 1;
     }
     for (i = 1; i < N; i++) {

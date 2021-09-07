@@ -6,5 +6,5 @@ loop_fusion: loop_fusion.c
 	gcc -O2 -o $@ $^
 loop_reversal: loop_reversal.c
 	gcc -O2 -o $@ $^
-test: test.c
+loop_peeling: loop_peeling.c
 	gcc -O2 -o $@ $^
