@@ -1,3 +1,3 @@
 matrix: matrix.cpp
-	g++ -ggdb3 -o $@ $^
+	g++ -ggdb3 -O3 -o $@ $^
 

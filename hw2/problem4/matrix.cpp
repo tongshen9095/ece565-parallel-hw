@@ -29,9 +29,27 @@ void multiplyI(std::vector<std::vector<double>> A,
   std::cout << "C[N - 1][N - 1] = " << C[N - 1][N - 1] << "\n";
 }
 
+double calc_time(struct timeval start, struct timeval end) {
+  double start_sec = (double) start.tv_sec * 1000000.0 + (double) start.tv_usec;
+  double end_sec = (double) end.tv_sec * 1000000.0 + (double) end.tv_usec;
+  if (end_sec < start_sec) {
+    return 0;
+  } else {
+    return end_sec - start_sec;
+  }
+}
+
 int main() {
   std::vector<std::vector<double>> A = initMatrix();
   std::vector<std::vector<double>> B = initMatrix();
+
+  struct timeval start_time, end_time;
+  gettimeofday(&start_time, NULL);
   multiplyI(A, B);
+  gettimeofday(&end_time, NULL);
+
+  double elapsed_s = calc_time(start_time, end_time) / 1000000.0;
+  std::cout << "Time = " << elapsed_s << " seconds" << "\n";
+
   return EXIT_SUCCESS;;
 }
