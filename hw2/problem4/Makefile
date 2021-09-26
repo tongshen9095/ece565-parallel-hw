@@ -1,2 +1,3 @@
-matrix: matrix.c
-	gcc -ggdb3 -O3 -o $@ $^
+matrix: matrix.cpp
+	g++ -ggdb3 -o $@ $^
+
