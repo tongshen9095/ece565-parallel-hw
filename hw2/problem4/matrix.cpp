@@ -5,9 +5,10 @@
 #include <vector>
 
 # define N 1024
+# define step 128
 
-std::vector<std::vector<double> > initMatrix() {
-  std::vector<std::vector<double> > matrix(N, std::vector<double>(N, 0));
+std::vector<std::vector<double>> initMatrix() {
+  std::vector<std::vector<double>> matrix(N, std::vector<double>(N, 0));
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       matrix[i][j] = rand() % N;
@@ -29,12 +30,11 @@ void multiplyI(std::vector<std::vector<double>> A,
       C[i][j] = sum;
     }
   }
-  std::cout << "C[N - 1][N - 1] = " << C[N - 1][N - 1] << "\n";
 }
 
 // J-K-I
 void multiplyII(std::vector<std::vector<double>> A,
-	       std::vector<std::vector<double>> B) {
+		std::vector<std::vector<double>> B) {
   std::vector<std::vector<double> > C(N, std::vector<double>(N, 0));
   for (int j = 0; j < N; j++) {
     for (int k = 0; k < N; k++) {
@@ -44,12 +44,11 @@ void multiplyII(std::vector<std::vector<double>> A,
       }
     }
   }
-  std::cout << "C[N - 1][N - 1] = " << C[N - 1][N - 1] << "\n";
 }
 
 // I-K-J
 void multiplyIII(std::vector<std::vector<double>> A,
-	       std::vector<std::vector<double>> B) {
+		 std::vector<std::vector<double>> B) {
   std::vector<std::vector<double> > C(N, std::vector<double>(N, 0));
   for (int i = 0; i < N; i++) {
     for (int k = 0; k < N; k++) {
@@ -59,7 +58,23 @@ void multiplyIII(std::vector<std::vector<double>> A,
       }
     }
   }
-  std::cout << "C[N - 1][N - 1] = " << C[N - 1][N - 1] << "\n";
+}
+
+// loop tiling for I-J-K
+void multiplyLoopTiling(std::vector<std::vector<double>> A,
+			std::vector<std::vector<double>> B) {
+  std::vector<std::vector<double> > C(N, std::vector<double>(N, 0));
+  for (int i = 0; i < N; i += step) {
+    for (int j = 0; j < N; j += step) {
+      for (int ii = i; ii < i + step; ii++) {
+	for (int jj = j; jj < j + step; jj++) {
+	  for (int k = 0; k < N; k++) {
+	    C[i][j] += A[ii][k] * B[k][jj];
+	  }
+	}
+      }
+    }
+  }
 }
 
 double calc_time(struct timeval start, struct timeval end) {
@@ -88,21 +103,30 @@ int main(int argc, char * argv[]) {
     gettimeofday(&start_time, NULL);
     multiplyI(A, B);
     gettimeofday(&end_time, NULL);
+    std::cout << "I-J-K ";
     break;
   case 2:
     gettimeofday(&start_time, NULL);
     multiplyII(A, B);
     gettimeofday(&end_time, NULL);
+    std::cout << "J-K-I ";
     break;
   case 3:
     gettimeofday(&start_time, NULL);
     multiplyIII(A, B);
     gettimeofday(&end_time, NULL);
+    std::cout << "I-K-J ";
+    break;
+  case 4:
+    gettimeofday(&start_time, NULL);
+    multiplyLoopTiling(A, B);
+    gettimeofday(&end_time, NULL);
+    std::cout << "Loop tiling for I-J-K ";
     break;
   }
 
   double elapsed_s = calc_time(start_time, end_time) / 1000000.0;
-  std::cout << "Time = " << elapsed_s << " seconds" << "\n";
+  std::cout << "time: " << elapsed_s << " seconds" << "\n";
 
   return EXIT_SUCCESS;;
 }
