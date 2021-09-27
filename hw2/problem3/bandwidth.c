@@ -45,6 +45,10 @@ int main(int argc, char * argv[]) {
   }
   
   int num_elements = atoi(argv[1]);
+  if (num_elements != 4096 && num_elements != 4000000) {
+    printf("The number of elements can only be 4096 or 4000000\n");
+    return EXIT_FAILURE;
+  }
   int num_iters = atoi(argv[2]);
   int choice = atoi(argv[3]);
   
