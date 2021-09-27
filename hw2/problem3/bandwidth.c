@@ -15,7 +15,7 @@ void read_write_1_1(uint64_t * array, int num_elements, int num_iters) {
   for (int i = 0; i < num_iters; i++) {
     for (int index = 0; index < num_elements; index++) {
       array[index] = array[index] + 1;
-    }
+    } 
   }
 }
 
