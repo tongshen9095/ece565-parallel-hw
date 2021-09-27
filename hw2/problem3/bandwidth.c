@@ -6,8 +6,16 @@
 
 void write_only(uint64_t * array, int num_elements, int num_iters) {
   for (int i = 0; i < num_iters; i++) {
-    for (int j = 0; j < num_elements; j++) {
-      array[j] = j;
+    for (int index = 0; index < num_elements; index++) {
+      array[index] = index;
+    }
+  }
+}
+
+void read_write_1_1(uint64_t * array, int num_elements, int num_iters) {
+  for (int i = 0; i < num_iters; i++) {
+    for (int index = 0; index < num_elements; index++) {
+      array[index] = array[index] + 1;
     }
   }
 }
@@ -45,12 +53,20 @@ int main(int argc, char * argv[]) {
     write_only(array, num_elements, num_iters);
     clock_gettime(CLOCK_MONOTONIC, &end_time);
     num_bytes = num_elements * num_iters * 8;
+    printf("write traffic only: ");
+    break;
+  case 2:
+    clock_gettime(CLOCK_MONOTONIC, &start_time);
+    read_write_1_1(array, num_elements, num_iters);
+    clock_gettime(CLOCK_MONOTONIC, &end_time);
+    num_bytes = num_elements * num_iters * 8 * 2;
+    printf("1 : 1 read-to-write: ");
     break;
     
   }
   
   double elapsed_ns = calc_time(start_time, end_time);
-  printf("write traffic only: %f GBPS\n", num_bytes / elapsed_ns);
+  printf("%f GBPS\n", num_bytes / elapsed_ns);
   
   free(array);
 }
