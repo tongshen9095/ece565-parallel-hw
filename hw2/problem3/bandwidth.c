@@ -45,10 +45,12 @@ int main(int argc, char * argv[]) {
   }
   
   int num_elements = atoi(argv[1]);
-  if (num_elements != 4096 && num_elements != 4000000) {
-    printf("The number of elements can only be 4096 or 4000000\n");
+  
+  if (num_elements != 4000 && num_elements != 4000000) {
+    printf("The number of elements can only be 4000 or 4000000\n");
     return EXIT_FAILURE;
   }
+  
   int num_iters = atoi(argv[2]);
   int choice = atoi(argv[3]);
   
@@ -72,14 +74,14 @@ int main(int argc, char * argv[]) {
     read_write_1_1(array, num_elements, num_iters);
     clock_gettime(CLOCK_MONOTONIC, &end_time);
     num_bytes = num_elements * num_iters * 8 * 2;
-    printf("1 : 1 read-to-write: ");
+    printf("1:1 read-to-write: ");
     break;
   case 3:
     clock_gettime(CLOCK_MONOTONIC, &start_time);
     read_write_2_1(array, num_elements, num_iters);
     clock_gettime(CLOCK_MONOTONIC, &end_time);
     num_bytes = num_elements * num_iters * 8 * 3;
-    printf("2 : 1 read-to-write: ");
+    printf("2:1 read-to-write: ");
     break;
   }
   
