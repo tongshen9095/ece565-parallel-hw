@@ -5,7 +5,7 @@
 #include <vector>
 
 # define N 1024
-# define step 128
+# define step 64
 
 std::vector<std::vector<double>> initMatrix() {
   std::vector<std::vector<double>> matrix(N, std::vector<double>(N, 0));
@@ -69,7 +69,7 @@ void multiplyLoopTiling(std::vector<std::vector<double>> A,
       for (int ii = i; ii < i + step; ii++) {
 	for (int jj = j; jj < j + step; jj++) {
 	  for (int k = 0; k < N; k++) {
-	    C[i][j] += A[ii][k] * B[k][jj];
+	    C[ii][jj] += A[ii][k] * B[k][jj];
 	  }
 	}
       }
