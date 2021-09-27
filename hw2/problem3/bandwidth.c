@@ -52,11 +52,6 @@ int main(int argc, char * argv[]) {
     printf("The number of elements can only be 4096 or 4000000\n");
     return EXIT_FAILURE;
   }
-
-  if (choice != 1 && choice != 2 && choice != 3) {
-    printf("The choice can only be 1, 2 or 3\n");
-    return EXIT_FAILURE;
-  }
   
   uint64_t * array = (uint64_t*)malloc(num_elements * sizeof(uint64_t));
   for (int index = 0; index < num_elements; index++) {
