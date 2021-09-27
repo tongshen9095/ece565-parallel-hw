@@ -3,11 +3,10 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-
 void write_only(uint64_t * array, int num_elements, int num_iters) {
   for (int i = 0; i < num_iters; i++) {
     for (int index = 0; index < num_elements; index++) {
-      array[index] = index;
+      array[index] = 1;
     }
   }
 }
@@ -17,6 +16,15 @@ void read_write_1_1(uint64_t * array, int num_elements, int num_iters) {
     for (int index = 0; index < num_elements; index++) {
       array[index] = array[index] + 1;
     }
+  }
+}
+
+void read_write_2_1(uint64_t * array, int num_elements, int num_iters) {
+  for (int i = 0; i < num_iters; i++) {
+    for (int index = 0; index < num_elements - 1; index++) {
+      array[index] = array[index] + array[index + 1];
+    }
+    array[num_elements - 1] = array[num_elements - 1] + array[0];
   }
 }
 
@@ -41,8 +49,8 @@ int main(int argc, char * argv[]) {
   int choice = atoi(argv[3]);
   
   uint64_t * array = (uint64_t*)malloc(num_elements * sizeof(uint64_t));
-  for (int i = 0; i < num_elements; i++) {
-    array[i] = 0;
+  for (int index = 0; index < num_elements; index++) {
+    array[index] = index;
   }
 
   struct timespec start_time, end_time;
@@ -62,7 +70,13 @@ int main(int argc, char * argv[]) {
     num_bytes = num_elements * num_iters * 8 * 2;
     printf("1 : 1 read-to-write: ");
     break;
-    
+  case 3:
+    clock_gettime(CLOCK_MONOTONIC, &start_time);
+    read_write_2_1(array, num_elements, num_iters);
+    clock_gettime(CLOCK_MONOTONIC, &end_time);
+    num_bytes = num_elements * num_iters * 8 * 3;
+    printf("2 : 1 read-to-write: ");
+    break;
   }
   
   double elapsed_ns = calc_time(start_time, end_time);
