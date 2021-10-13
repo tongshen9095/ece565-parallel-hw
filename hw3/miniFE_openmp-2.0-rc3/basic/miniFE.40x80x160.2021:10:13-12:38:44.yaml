@@ -1,0 +1,61 @@
+Mini-Application Name: miniFE
+Mini-Application Version: 2.0
+Global Run Parameters: 
+  dimensions: 
+    nx: 40
+    ny: 80
+    nz: 160
+  load_imbalance: 0
+  mv_overlap_comm_comp: 0 (no)
+  number of processors: 1
+  ScalarType: double
+  GlobalOrdinalType: int
+  LocalOrdinalType: int
+Platform: 
+  hostname: kraken
+  kernel name: 'Linux'
+  kernel release: '5.11.0-36-generic'
+  processor: 'x86_64'
+Build: 
+  CXX: '/usr/bin/g++'
+  compiler version: 'g++ (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0'
+  CXXFLAGS: '-g -pg -O3 -fno-inline'
+  using MPI: no
+  Threading: none
+Run Date/Time: 2021-10-13, 12-37-02
+Rows-per-proc Load Imbalance: 
+  Largest (from avg, %): 0
+  Std Dev (%): 0
+Matrix structure generation: 
+  Mat-struc-gen Time: 11.9352
+FE assembly: 
+  FE assembly Time: 17.8187
+Matrix attributes: 
+  Global Nrows: 534681
+  Global NNZ: 14026441
+  Global Memory (GB): 0.160741
+  Pll Memory Overhead (MB): 0
+  Rows per proc MIN: 534681
+  Rows per proc MAX: 534681
+  Rows per proc AVG: 534681
+  NNZ per proc MIN: 14026441
+  NNZ per proc MAX: 14026441
+  NNZ per proc AVG: 1.40264e+07
+CG solve: 
+  Iterations: 50
+  Final Resid Norm: 0.0384594
+  WAXPY Time: 1.56181
+  WAXPY Flops: 2.33472e+08
+  WAXPY Mflops: 149.488
+  DOT Time: 1.96938
+  DOT Flops: 1.024e+08
+  DOT Mflops: 51.9959
+  MATVEC Time: 1.33495
+  MATVEC Flops: 1.4307e+09
+  MATVEC Mflops: 1071.73
+  Total: 
+    Total CG Time: 4.90221
+    Total CG Flops: 1.76657e+09
+    Total CG Mflops: 360.362
+  Time per iteration: 0.0980441
+Total Program Time: 102.464
