@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dir=../../common
+dir=../src
 
 cp ${dir}/YAML_Doc.cpp .
 cp ${dir}/YAML_Doc.hpp .
